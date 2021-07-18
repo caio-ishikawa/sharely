@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for obj in folders %}
+    {% for file in obj.file.all %}
+        <a href="{{file.file.url}}">{{file}}</a>
+    {% endfor %}
+{% endfor %}
+
+{% endblock %}
