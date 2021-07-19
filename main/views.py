@@ -9,7 +9,8 @@ def homepage(request):
     if request.user.is_authenticated:
         files = File.objects.filter(user=request.user)
         folders = Folder.objects.filter(user=request.user)
-        return render(request, 'main/homepage.html', {'files':files, 'folders':folders})
+        all_folders = Folder.objects.all()
+        return render(request, 'main/homepage.html', {'files':files, 'folders':folders, 'all_folders':all_folders})
     else:
         return  render(request, 'main/homepage.html')
 

@@ -45,6 +45,19 @@
                                 </li>
                             {% endif %}
                         {% endfor %}
+                        <br>
+                        <li class="nav-header">
+                            <h5 class="px-2">Shared with me:</h5>
+                        </li>
+                        {% for folder in all_folders %}
+                                {% if request.user in folder.allowed_user.all %}
+                                    <li class="nav-item">
+                                        <a href="{% url 'main:folder' folder.pk %}" class="nav-link align-middle px-0 text-decoration-none text-white">
+                                            <i class="fa fa-folder-o fa-lg px-2"></i><span class="ms-1 d-none d-sm-inline" style="margin-left: 10%">{{folder.name}}</span>
+                                        </a> 
+                                    </li>
+                                {% endif %}
+                        {% endfor %}
                     </ul>
                     <hr>
                 </div>
@@ -66,6 +79,12 @@
                                     {% for folder in folders %}
                                         <li><a class="dropdown-item" href="{% url 'main:add_file' pk=file.pk id=folder.id%}">{{folder.name}}</a></li>
                                     {% endfor %}
+                                    <li><h6 class="dropdown-header">Shared folders:</h6></li>
+                                    {% for folder in all_folders %}
+                                        {% if request.user in folder.allowed_user.all or request.user == folder.user %}
+                                            <li><a class="dropdown-item" href="{% url 'main:add_file' pk=file.pk id=folder.id%}">{{folder.name}}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
                                     <li><h6 class="dropdown-header">Options</h6></li>
                                     <li><a class="dropdown-item" href="#">Delete</a></li>
                                 </ul>
@@ -78,6 +97,11 @@
         </div>
     </div>
     <a href="{% url 'main:results' %}">search</a>
+    {% for folder in all_folders %}
+        {% if request.user in folder.allowed_user.all %}
+            <p>{{folder.name}}</p>
+        {% endif %}
+    {% endfor %}
 {% else %}
     <p>you aint logged in</p>
 {% endif %}
