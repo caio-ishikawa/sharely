@@ -14,4 +14,7 @@ urlpatterns = [
     path('folder/add/', include('main.urls')),
     #path('add/<int:pk>/<int:folder_id>/', include('main.urls')),
     path('add/<int:id>/<int:pk>/', include('main.urls')),
+    path('add/user/<int:pk>/', include('main.urls')),
+    path('search/', include('main.urls')),
+    path('user/search/', include('main.urls')),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

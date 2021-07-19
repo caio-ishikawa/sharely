@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+
+<p>search page</p>
+{% if searched %}
+    <p>{{searched}}</p>
+    {% for user in list %}
+        <a href="#">{{user}}</a>
+    {% endfor %}
+
+
+
+
+{% else %}
+    <p>woops</p>
+{% endif %}
+
+
+{% endblock %}

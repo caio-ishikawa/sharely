@@ -13,4 +13,7 @@ urlpatterns = [
     path('folder/add/', views.createFolder, name='add_folder'),
     #path('add/<int:pk>/<int:folder_id>/', views.addFile, name='add_file')
     path('add/<int:pk>/<str:id>/', views.addFile, name='add_file'),
+    path('add/user/<int:pk>/', views.addUser, name='add_user'),
+    path('search/', views.searchResults, name='results'),
+    path('user/search/', views.searchUser, name='search')
 ]

@@ -64,8 +64,9 @@ def uploadView(request):
 
 
 def folderView(request, pk):
+    all_folders = Folder.objects.filter(user=request.user)
     folders =  Folder.objects.filter(pk=pk)
-    return render(request, 'main/folder.html', {'folders':folders})
+    return render(request, 'main/folder.html', {'folders':folders, 'all_folders':all_folders})
 
 
 def createFolder(request):
@@ -79,8 +80,37 @@ def createFolder(request):
 
     return render(request, 'main/add_folder.html', {'form':form})
 
+
+def addUser(request, pk):
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        searched_user = User.objects.get(username=searched)
+        folder = Folder.objects.get(pk=pk)
+        #user = User.objects.get(username=searched_user)
+        folder.allowed_user.add(searched_user)
+        return redirect('/')
+
+
 def addFile(request, pk, id):
     folder = Folder.objects.get(pk=id)
     new_file = File.objects.get(pk=pk)
     folder.file.add(new_file)
     return redirect('/')
+
+
+def searchResults(request):
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        user_list = User.objects.filter(username__contains=searched)
+        return render(request, 'main/search_results.html', {'searched':searched, 'list':user_list})
+    else:
+        return render('/')
+
+
+def searchUser(request):
+    return render(request, 'main/search.html')
+
+
+
+### add user to folder button => pop up searh form => if username correct add user to folder => add to user to folder.allowed_user ###
+

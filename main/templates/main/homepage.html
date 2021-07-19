@@ -37,11 +37,13 @@
                             <h5 class="px-2">My folders:</h5>
                         </li>
                         {% for folder in folders %}
-                        <li class="nav-item">
-                            <a href="{% url 'main:folder' folder.pk %}" class="nav-link align-middle px-0 text-decoration-none text-white">
-                                <i class="fa fa-folder-o fa-lg px-2"></i><span class="ms-1 d-none d-sm-inline" style="margin-left: 10%">{{folder.name}}</span>
-                            </a>
-                        </li>
+                            {% if folder.user.pk == request.user.pk %}
+                                <li class="nav-item">
+                                    <a href="{% url 'main:folder' folder.pk %}" class="nav-link align-middle px-0 text-decoration-none text-white">
+                                        <i class="fa fa-folder-o fa-lg px-2"></i><span class="ms-1 d-none d-sm-inline" style="margin-left: 10%">{{folder.name}}</span>
+                                    </a>
+                                </li>
+                            {% endif %}
                         {% endfor %}
                     </ul>
                     <hr>
@@ -50,29 +52,32 @@
             <div class="col py-3">
                 <ul class="list-group ">
                     {% for file in files %}
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto my-auto">
-                            <div class=""><a class="text-decoration-none" href="{{file.file.url}}">{{file.title}}</a></div>
-                        </div>
-                        <div class="btn-group">
-                            <a role="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            options 
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><h6 class="dropdown-header">Add to:</h6></li>
-                                {% for folder in folders %}
-                                    <li><a class="dropdown-item" href="{% url 'main:add_file' pk=file.pk id=folder.id%}">{{folder.name}}</a></li>
-                                {% endfor %}
-                                <li><h6 class="dropdown-header">Options</h6></li>
-                                <li><a class="dropdown-item" href="#">Delete</a></li>
-                            </ul>
-                        </div>
-                        </li>
+                        {% if file.user.pk == request.user.pk %}
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto my-auto">
+                                <div class=""><a class="text-decoration-none" href="{{file.file.url}}">{{file.title}}</a></div>
+                            </div>
+                            <div class="btn-group">
+                                <a role="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                options 
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><h6 class="dropdown-header">Add to:</h6></li>
+                                    {% for folder in folders %}
+                                        <li><a class="dropdown-item" href="{% url 'main:add_file' pk=file.pk id=folder.id%}">{{folder.name}}</a></li>
+                                    {% endfor %}
+                                    <li><h6 class="dropdown-header">Options</h6></li>
+                                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                                </ul>
+                            </div>
+                            </li>
+                        {% endif %}
                     {% endfor %}
                   </ul> 
             </div>
         </div>
     </div>
+    <a href="{% url 'main:results' %}">search</a>
 {% else %}
     <p>you aint logged in</p>
 {% endif %}

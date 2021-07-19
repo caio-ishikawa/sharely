@@ -1,10 +1,112 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% for obj in folders %}
-    {% for file in obj.file.all %}
-        <a href="{{file.file.url}}">{{file}}</a>
-    {% endfor %}
-{% endfor %}
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <br>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 me-md-auto align-items-center align-items-sm-start text-decoration-none text-white" id="menu">
+                    <li class="nav-item px-2">
+                        <div class="dropdown">
+                            <a class="btn btn-primary dropdown-toggle px-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-plus fa-lg"></i>
+                                <span>New</span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                              <li><a class="dropdown-item" href="{% url 'main:add_folder' %}">Folder</a></li>
+                              <li><a class="dropdown-item" href="{% url 'main:upload' %}">Upload</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <br>
+                    <li class="nav-item">
+                        <a href="{% url 'main:homepage' %}" class="nav-link align-middle px-0 text-decoration-none text-white">
+                            <i class="fa fa-home fa-lg px-2" witdh=15 height=15></i><span class="ms-1 d-none d-sm-inline">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link align-middle px-0 text-decoration-none text-white">
+                            <i class="fa fa-clock-o fa-lg px-2"></i><span class="ms-1 d-none d-sm-inline">Recent</span>
+                        </a>
+                    </li>
+                    <br>
+                    <li class="nav-header">
+                        <h5 class="px-2">My folders:</h5>
+                    </li>
+                    {% for folder in all_folders %}
+                        {% if folder.user.pk == request.user.pk %}
+                            <li class="nav-item">
+                                <a href="{% url 'main:folder' folder.pk %}" class="nav-link align-middle px-0 text-decoration-none text-white">
+                                    <i class="fa fa-folder-o fa-lg px-2"></i><span class="ms-1 d-none d-sm-inline" style="margin-left: 10%">{{folder.name}}</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                <hr>
+            </div>
+        </div>
+        <div class="col py-3">
+            {% for folder in folders %}
+                {% if request.user in folder.allowed_user.all or request.user == folder.user %}
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Invite
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Add a contributor</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="{% url 'main:add_user' pk=folder.pk%}">
+                                        {% csrf_token %}
+                                        <input name="searched" class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> 
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <ul class="list-group ">
+                {% for folder in folders %}
+                    {% for file in folder.file.all %}
+                        {% if request.user in folder.allowed_user.all or request.user == folder.user %}
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto my-auto">
+                                <div class=""><a class="text-decoration-none" href="{{file.file.url}}">{{file.title}}</a></div>
+                            </div>
+                            <div class="btn-group">
+                                <a role="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                options 
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><h6 class="dropdown-header">Add to:</h6></li>
+                                    {% for folder in folders %}
+                                        <li><a class="dropdown-item" href="{% url 'main:add_file' pk=file.pk id=folder.id%}">{{folder.name}}</a></li>
+                                    {% endfor %}
+                                    <li><h6 class="dropdown-header">Options</h6></li>
+                                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                                </ul>
+                            </div>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+              </ul> 
+        </div>
+    </div>
+</div>
+
 
 {% endblock %}
