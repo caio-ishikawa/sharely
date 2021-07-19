@@ -8,66 +8,63 @@
             <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                     <br>
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start text-decoration-none text-white" id="menu">
-                        <li class="nav-item">
-                            <a type="button" class="btn btn-primary btn-lg active text-dark" style="width:100% !important" href="{% url 'main:upload' %}"><i class="fa fa-plus"></i> New</a>
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 me-md-auto align-items-center align-items-sm-start text-decoration-none text-white" id="menu">
+                        <li class="nav-item px-2">
+                            <div class="dropdown">
+                                <a class="btn btn-primary dropdown-toggle px-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-plus fa-lg"></i>
+                                    <span>New</span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                  <li><a class="dropdown-item" href="{% url 'main:add_folder' %}">Folder</a></li>
+                                  <li><a class="dropdown-item" href="{% url 'main:upload' %}">Upload</a></li>
+                                </ul>
+                            </div>
                         </li>
                         <br>
                         <li class="nav-item">
                             <a href="{% url 'main:homepage' %}" class="nav-link align-middle px-0 text-decoration-none text-white">
-                                <i class="fa fa-home"></i><span class="ms-1 d-none d-sm-inline">Home</span>
+                                <i class="fa fa-home fa-lg px-2" witdh=15 height=15></i><span class="ms-1 d-none d-sm-inline">Home</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link align-middle px-0 text-decoration-none text-white">
-                                <i class="fa fa-clock-o"></i><span class="ms-1 d-none d-sm-inline">Recent</span>
+                                <i class="fa fa-clock-o fa-lg px-2"></i><span class="ms-1 d-none d-sm-inline">Recent</span>
                             </a>
                         </li>
                         <br>
                         <li class="nav-header">
-                            <h5>My folders:</h5>
+                            <h5 class="px-2">My folders:</h5>
                         </li>
                         {% for folder in folders %}
                         <li class="nav-item">
                             <a href="{% url 'main:folder' folder.pk %}" class="nav-link align-middle px-0 text-decoration-none text-white">
-                                <i class="fa fa-folder-o"></i><span class="ms-1 d-none d-sm-inline">{{folder.name}}</span>
+                                <i class="fa fa-folder-o fa-lg px-2"></i><span class="ms-1 d-none d-sm-inline" style="margin-left: 10%">{{folder.name}}</span>
                             </a>
                         </li>
                         {% endfor %}
                     </ul>
                     <hr>
-                    <div class="dropdown pb-4">
-                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                            <span class="d-none d-sm-inline mx-1">loser</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="#">New project...</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="{% url 'main:logout' %}">Sign out</a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
             <div class="col py-3">
                 <ul class="list-group ">
                     {% for file in files %}
                         <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold"><a class="text-decoration-none" href="{{file.file.url}}">{{file.title}}</a></div>
+                        <div class="ms-2 me-auto my-auto">
+                            <div class=""><a class="text-decoration-none" href="{{file.file.url}}">{{file.title}}</a></div>
                         </div>
                         <div class="btn-group">
                             <a role="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             options 
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
+                                <li><h6 class="dropdown-header">Add to:</h6></li>
                                 {% for folder in folders %}
                                     <li><a class="dropdown-item" href="{% url 'main:add_file' pk=file.pk id=folder.id%}">{{folder.name}}</a></li>
                                 {% endfor %}
+                                <li><h6 class="dropdown-header">Options</h6></li>
+                                <li><a class="dropdown-item" href="#">Delete</a></li>
                             </ul>
                         </div>
                         </li>
