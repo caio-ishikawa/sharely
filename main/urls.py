@@ -15,5 +15,6 @@ urlpatterns = [
     path('add/<int:pk>/<str:id>/', views.addFile, name='add_file'),
     path('add/user/<int:pk>/', views.addUser, name='add_user'),
     path('search/', views.searchResults, name='results'),
-    path('user/search/', views.searchUser, name='search')
+    path('user/search/', views.searchUser, name='search'),
+    path('file/<int:pk>/delete/', views.deleteFile, name='delete'),
 ]

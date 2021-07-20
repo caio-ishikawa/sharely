@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from .models import File, Folder
 from .forms import FileForm, FolderForm
+from django.http import HttpResponseRedirect
 
 def homepage(request):
     if request.user.is_authenticated:
@@ -64,6 +65,12 @@ def uploadView(request):
     return render(request, 'main/upload.html', {'form': form})
 
 
+def deleteFile(request, pk):
+    File.objects.filter(pk=pk).delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+
 def folderView(request, pk):
     all_folders = Folder.objects.all()
     folders =  Folder.objects.filter(pk=pk)
@@ -89,7 +96,7 @@ def addUser(request, pk):
         folder = Folder.objects.get(pk=pk)
         #user = User.objects.get(username=searched_user)
         folder.allowed_user.add(searched_user)
-        return redirect('/')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def addFile(request, pk, id):
@@ -111,7 +118,4 @@ def searchResults(request):
 def searchUser(request):
     return render(request, 'main/search.html')
 
-
-
-### add user to folder button => pop up searh form => if username correct add user to folder => add to user to folder.allowed_user ###
 

@@ -117,7 +117,7 @@
                                             <li><a class="dropdown-item" href="{% url 'main:add_file' pk=file.pk id=folder.id%}">{{folder.name}}</a></li>
                                         {% endfor %}
                                         <li><h6 class="dropdown-header">Options</h6></li>
-                                        <li><a class="dropdown-item" href="#">Delete</a></li>
+                                        <li><a class="dropdown-item text-danger" href="{% url 'main:delete' file.pk %}">Delete</a></li>
                                     </ul>
                                 </div>
                             </li>

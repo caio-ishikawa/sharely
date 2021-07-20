@@ -17,4 +17,5 @@ urlpatterns = [
     path('add/user/<int:pk>/', include('main.urls')),
     path('search/', include('main.urls')),
     path('user/search/', include('main.urls')),
+    path('file/<int:pk>/delete/', include('main.urls')),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
