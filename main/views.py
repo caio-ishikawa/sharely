@@ -65,7 +65,7 @@ def uploadView(request):
 
 
 def folderView(request, pk):
-    all_folders = Folder.objects.filter(user=request.user)
+    all_folders = Folder.objects.all()
     folders =  Folder.objects.filter(pk=pk)
     return render(request, 'main/folder.html', {'folders':folders, 'all_folders':all_folders})
 
