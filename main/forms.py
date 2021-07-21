@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import File, Folder
+from .models import File, Folder, Comment
 
 
 class FileForm(ModelForm):
@@ -13,3 +13,8 @@ class FolderForm(ModelForm):
     class Meta:
         model = Folder
         fields = ('name', 'file',)
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('content',)

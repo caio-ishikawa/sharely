@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from .models import File, Folder
-from .forms import FileForm, FolderForm
+from .forms import FileForm, FolderForm, CommentForm
 from django.http import HttpResponseRedirect
 
 def homepage(request):
@@ -70,10 +70,18 @@ def deleteFile(request, pk):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-
 def folderView(request, pk):
     all_folders = Folder.objects.all()
     folders =  Folder.objects.filter(pk=pk)
+    form = CommentForm(request.POST)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instnace.comment_user = request.user
+        instance.comment_folder = folders
+        instance.save()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
     return render(request, 'main/folder.html', {'folders':folders, 'all_folders':all_folders})
 
 

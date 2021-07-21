@@ -25,3 +25,9 @@ class Link(models.Model):
     key = models.CharField(primary_key=True, max_length=50)
     folder = models.ForeignKey(Folder, unique=True, on_delete=models.CASCADE)
 
+
+class Comment(models.Model):
+    comment_folder = models.ForeignKey(Folder, related_name='comments', on_delete=models.CASCADE)
+    comment_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.CharField(max_length=500)
+    date = models.DateField(auto_now_add=True)
