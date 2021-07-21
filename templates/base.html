@@ -23,7 +23,12 @@
         </form>
         <div class="navbar-nav">
             <div class="nav-item text-nowrap">
-                <a class="nav-link px-3" href="{% url 'main:logout' %}">Sign out</a>
+                {% if user.is_authenticated %}
+                <a class="btn btn-primary px-3" href="{% url 'main:logout' %}">Sign out</a>
+                {% else %}
+                    <a class="btn btn-light" href="{% url 'main:login' %}">Log in</a>
+                    <a class="btn btn-primary px-3" href="{% url 'main:register' %}">Sign up</a>
+                {% endif %}
             </div>
         </div>
     </header>
