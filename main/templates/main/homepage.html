@@ -86,7 +86,7 @@
                                     {% endfor %}
                                     <li><h6 class="dropdown-header">Shared folders:</h6></li>
                                     {% for folder in all_folders %}
-                                        {% if request.user in folder.allowed_user.all or request.user == folder.user %}
+                                        {% if request.user in folder.allowed_user.all %}
                                             <li><a class="dropdown-item" href="{% url 'main:add_file' pk=file.pk id=folder.id%}">{{folder.name}}</a></li>
                                         {% endif %}
                                     {% endfor %}
@@ -101,13 +101,23 @@
             </div>
         </div>
     </div>
-    <a href="{% url 'main:results' %}">search</a>
-    {% for folder in all_folders %}
-        {% if request.user in folder.allowed_user.all %}
-            <p>{{folder.name}}</p>
-        {% endif %}
-    {% endfor %}
 {% else %}
-    <p>you aint logged in</p>
+    <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+            <div class="col-10 col-sm-8 col-lg-6">
+                IMAGE
+            </div>
+            <div class="col-lg-6">
+                <h1 class="display-5 fw-bold lh-1 mb-3">Share.ly</h1>
+                <p class="lead">
+                    Quickly share and manage projects with contributors using Sharely. The easiest management tool available, allowing you to quickly share folders and lead projects, as well as directly communicate with a project’s team members.
+                </p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <a class="btn btn-primary btn-lg px-4 me-md-2">Sign up</a>
+                    <a class="btn btn-outline-primary btn-lg px-4">Log in</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endif %}
 {% endblock %}
