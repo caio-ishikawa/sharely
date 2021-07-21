@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
@@ -50,6 +50,7 @@ def logoutView(request):
     logout(request)
     return redirect('/')
 
+
 def uploadView(request):
     form = FileForm(request.POST, request.FILES)
 
@@ -77,12 +78,12 @@ def folderView(request, pk):
 
     if form.is_valid():
         instance = form.save(commit=False)
-        instnace.comment_user = request.user
-        instance.comment_folder = folders
+        instance.comment_user = request.user
+        instance.comment_folder = get_object_or_404(Folder, pk=pk)
         instance.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-    return render(request, 'main/folder.html', {'folders':folders, 'all_folders':all_folders})
+    return render(request, 'main/folder.html', {'folders':folders, 'all_folders':all_folders, 'form':form})
 
 
 def createFolder(request):

@@ -1,5 +1,12 @@
 const loadComments = () => {
-    console.log('works')
+    var div = document.getElementById('comments')
+    if (div.classList.contains('d-none')){
+        div.className = 'none'
+        console.log('hey this works')
+    }
+    else {
+        div.className = 'd-none'
+    }
 }
 
 
