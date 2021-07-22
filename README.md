@@ -1,5 +1,5 @@
 # Share.ly
-Sharely is a file management and collaboration website created with Django, HTML, Bootstrap and vanilla JavaScript. The goal was to create something that made file sharing, project management and collaboration easier. 
+[Sharely](http://caioishikawa98.pythonanywhere.com/) is a file management and collaboration website created with Django, HTML, Bootstrap and vanilla JavaScript. The goal was to create something that made file sharing, project management and collaboration easier. 
 
 The main features of Sharely include the ability to upload documents, create and add contributors to folders, and most importantly add comments to folders, in order to keep feedback regarding a project clean and concise instead of using multiple means of communication and file sharing.
 
@@ -21,3 +21,5 @@ The main features of Sharely include the ability to upload documents, create and
     <td><img src="https://i.imgur.com/1UqyPTh.png" width="500"></td>
   </tr>
  </table>
+ 
+ LINK TO LIVE APP: http://caioishikawa98.pythonanywhere.com/
