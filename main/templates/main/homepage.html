@@ -102,22 +102,56 @@
         </div>
     </div>
 {% else %}
-    <div class="container col-xxl-8 px-4 py-5">
-        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-            <div class="col-10 col-sm-8 col-lg-6">
-                IMAGE
-            </div>
-            <div class="col-lg-6">
-                <h1 class="display-5 fw-bold lh-1 mb-3">Share.ly</h1>
-                <p class="lead">
-                    Quickly share and manage projects with contributors using Sharely. The easiest management tool available, allowing you to quickly share folders and lead projects, as well as directly communicate with a project’s team members.
-                </p>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <a class="btn btn-primary btn-lg px-4 me-md-2">Sign up</a>
-                    <a class="btn btn-outline-primary btn-lg px-4">Log in</a>
+    <div class="py-5 my-5"></div>
+    <div class="my-5">
+        <div class="container col-xxl-8 px-4 py-5 my-auto">
+            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+                <div class="col-10 col-sm-8 col-lg-6 overflow-hidden">
+                    <img src="{% static 'screenshot.png' %}" height=500 class="img-fluid rounded">
+                </div>
+                <div class="col-lg-6">
+                    <h1 class="display-5 fw-bold lh-1 mb-3">Share.ly</h1>
+                    <p class="lead">
+                        Quickly share and manage projects with contributors using Sharely. The easiest management tool available, allowing you to quickly share folders and lead projects, as well as directly communicate with a project’s team members.
+                    </p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <a class="btn btn-primary btn-lg px-4 me-md-2">Sign up</a>
+                        <a class="btn btn-outline-primary btn-lg px-4">Log in</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="my-5 py-5"></div>
+    <div class="container px-4 pt-5" id="hanging-icons"> <h2 class="pb-2 border-bottom mx-1 text-primary">Features</h2>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+          <div class="col d-flex align-items-start">
+            <div>
+              <h2 class="text-primary">File Management</h2>
+              <p>Easy-to-use file sharing and management, allowing you to collaborate with others as well as maintain solo projects. </p>
+            </div>
+          </div>
+          <div class="col d-flex align-items-start">
+            <div>
+              <h2 class="text-primary">Easy Collaboration</h2>
+              <p>Add comments and remarks to all shared folders, making communication and version control easier and more intuitive than ever before. </p>
+            </div>
+          </div>
+          <div class="col d-flex align-items-start">
+            <div>
+              <h2 class="text-primary">Intuitive UI</h2>
+              <p>A simple and powerful interface allows users to take full advantage of Share.ly's features without being held back by clunky UI, and unoptimized features.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-10 col-lg-9 overflow-hidden mx-auto pt-5 my-5">
+        <img src="{% static 'screenshot4.png' %}" class="img-fluid rounded overflow-hidden mx-auto">
+     </div>
+      <footer class="footer mt-auto py-3 mt-1 bg-light">
+        <div class="container">
+          <span class="text-muted">Share.ly</span>
+        </div>
+      </footer>
 {% endif %}
 {% endblock %}

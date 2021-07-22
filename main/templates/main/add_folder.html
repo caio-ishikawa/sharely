@@ -1,12 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-    {% for field in form %}
-        <p>{{field.label_tag}}</p>
-        {{field}}
-    {% endfor %}
-    <button>add folder</button>
-</form>
+<div style="width:40%; margin: auto">
+    <div class="card p-5 my-5">
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <p>{{field.label_tag}}</p>
+                    {{field}}
+                {% endfor %}
+                <br>
+                <button class="btn btn-success my-4">add folder</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
