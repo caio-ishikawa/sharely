@@ -8,4 +8,16 @@ The main features of Sharely include the ability to upload documents, create and
 - HTML
 - Bootstrap
 - JavaScript
+<br>
+<br>
 
+<table>
+  <tr>
+    <td>Landing Page</td>
+     <td>Home page</td>
+  </tr>
+  <tr>
+    <td><img src="https://i.imgur.com/rIKbcGR.png" width="500"></td>
+    <td><img src="https://i.imgur.com/1UqyPTh.png" width="500"></td>
+  </tr>
+ </table>
